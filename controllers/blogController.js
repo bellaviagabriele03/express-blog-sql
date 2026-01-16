@@ -22,7 +22,7 @@ function index(req, res) {
         if(result.length === 0) {
             res.json({
                 message: "the data of blog_db dosn't exist, ask to Loris :("
-            }).status(404)
+            }).status(404) // 404 ?? controllare il codice di errore per questa situazione....
         }else {
             res.json({
                 count: `num of data: ${result.length}`,
