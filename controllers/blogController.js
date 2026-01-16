@@ -11,19 +11,19 @@ function index(req, res) {
     FROM POSTS
     `;
     connection.query(query, (err, result) => {
-        if(err){
+        if (err) {
             res.json({
                 message: "error yours database is hacked from Loris",
                 err: err,
 
             }).status(500);
         }
-        
-        if(result.length === 0) {
+
+        if (result.length === 0) {
             res.json({
                 message: "the data of blog_db dosn't exist, ask to Loris :("
             }).status(404) // 404 ?? controllare il codice di errore per questa situazione....
-        }else {
+        } else {
             res.json({
                 count: `num of data: ${result.length}`,
                 result: result
@@ -35,7 +35,29 @@ function index(req, res) {
 
 //show
 function show(req, res) {
+    const id = req.params.id;
+    const query = "SELECT * FROM posts WHERE id = ?";
+    connection.query(query, [id], (err, result) => {
+        if (err) {
+            res.json({
+                message: "error yours database is hacked from Loris",
+                err: err,
 
+            }).status(500);
+        }
+        if (result.length === 0) {
+            res.json({
+                err: 404,
+                message: "post not found ask to Loris ;)",
+            });
+        } else {
+            res.json({
+                result: result[0],
+            })
+        }
+
+
+    })
 }
 
 //store 
