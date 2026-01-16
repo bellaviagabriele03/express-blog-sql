@@ -5,17 +5,41 @@ import connection from "../connections/db-connection.js";
 
 
 //index
-function index (req, res) {
+function index(req, res) {
+    const query = `
+    SELECT *
+    FROM POSTS
+    `;
+    connection.query(query, (err, result) => {
+        if(err){
+            res.json({
+                message: "error yours database is hacked from Loris",
+                err: err,
 
+            }).status(500);
+        }
+        
+        if(result.length === 0) {
+            res.json({
+                message: "the data of blog_db dosn't exist, ask to Loris :("
+            }).status(404)
+        }else {
+            res.json({
+                count: `num of data: ${result.length}`,
+                result: result
+            })
+        }
+
+    })
 }
 
 //show
-function show (req, res) {
+function show(req, res) {
 
 }
 
 //store 
-function store (req, res) {
+function store(req, res) {
 
 }
 
@@ -41,7 +65,7 @@ const controller = {
     store,
     update,
     modify,
-    destroy,   
+    destroy,
 };
 
 export default controller
