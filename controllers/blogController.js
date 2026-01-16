@@ -81,6 +81,10 @@ function modify(req, res) {
 
 //destroy 
 function destroy(req, res) {
+
+    //lo so che dovrei fare due interrogazioni diverse dove in una controllo se il post da eliminare esiste 
+    // e nell'altra vado effettivamente ad eliminarla... ma Loris non vuole che lo faccio :( 
+
     const id = req.params.id;
     const query = "DELETE FROM posts WHERE id = ?";
     connection.query(query, [id], (err, result) => {
