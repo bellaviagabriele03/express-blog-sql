@@ -81,7 +81,31 @@ function modify(req, res) {
 
 //destroy 
 function destroy(req, res) {
+    const id = req.params.id;
+    const query = "DELETE FROM posts WHERE id = ?";
+    connection.query(query, [id], (err, result) => {
+        if (err) {
+            res.status(500);
+            res.json({
+                message: "error yours database is hacked from Loris, internal problem ? else ask to Samuel !!!!!",
+                err: err,
 
+            })
+        }
+        if (result.length === 0) {
+            res.status(404)
+            res.json({
+                err: 404,
+                message: "you can't delete an post that dosn't exist, always ask to Loris or for this time and ONLY for this time ask to Samuel, enjoy my man ;) ;)"
+            })
+        } else {
+            res.status(204)
+            res.send({
+                status: "ok you found it",
+                message: "i delete your post but for the next time ask to Loris for delete every post, (in a few words don't disturb me...) "
+            });
+        }
+    })
 }
 
 
