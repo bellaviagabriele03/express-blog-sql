@@ -12,11 +12,12 @@ function index(req, res) {
     `;
     connection.query(query, (err, result) => {
         if (err) {
+            res.status(500);
             res.json({
-                message: "error yours database is hacked from Loris",
+                message: "error yours database is hacked from Loris, internal problem ? else ask to Samuel !!!!",
                 err: err,
 
-            }).status(500);
+            })
         }
 
         if (result.length === 0) {
@@ -39,17 +40,20 @@ function show(req, res) {
     const query = "SELECT * FROM posts WHERE id = ?";
     connection.query(query, [id], (err, result) => {
         if (err) {
+            res.status(500);
             res.json({
-                message: "error yours database is hacked from Loris",
+                message: "error yours database is hacked from Loris, internal problem ? else ask to Samuel !!!!!",
                 err: err,
 
-            }).status(500);
+            })
         }
         if (result.length === 0) {
+            res.status(404)
             res.json({
                 err: 404,
                 message: "post not found ask to Loris ;)",
             });
+
         } else {
             res.json({
                 result: result[0],
